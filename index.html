@@ -181,7 +181,8 @@
   a.link {
     display: flex;
     align-items: center;
-    padding: 13px 18px;
+    gap: 16px;
+    padding: 14px 18px;
     background: rgba(20, 28, 50, 0.6);
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -191,6 +192,7 @@
     transition: all 0.25s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
   }
 
   a.link::before {
@@ -212,23 +214,19 @@
 
   a.link:hover::before { opacity: 1; }
 
-  .link-label {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
   .link-icon {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     object-fit: contain;
+    flex-shrink: 0;
     display: block;
   }
 
   @media (max-width: 480px) {
     .card { padding: 30px 20px; }
     h1 { font-size: 20px; }
-    a.link { padding: 11px 14px; font-size: 14px; }
+    a.link { padding: 12px 14px; font-size: 14px; gap: 14px; }
+    .link-icon { width: 26px; height: 26px; }
     .welcome h2 { font-size: 20px; }
     .continue-btn { padding: 12px 32px; }
   }
@@ -250,56 +248,43 @@
 
     <div class="links">
       <a class="link" href="https://t.me/qwerty81996" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram</span>
+        <img class="link-icon" src="socials/Telegram.png" alt=""> Telegram
       </a>
       <a class="link" href="https://t.me/+xzVGkA56BkI5OTli" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram-канал</span>
+        <img class="link-icon" src="socials/Telegram.png" alt=""> Telegram-канал
       </a>
       <a class="link" href="https://github.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/Github.png" alt=""> GitHub</span>
+        <img class="link-icon" src="socials/Github.png" alt=""> GitHub
       </a>
       <a class="link" href="https://x.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/X.png" alt=""> X (Twitter)</span>
+        <img class="link-icon" src="socials/X.png" alt=""> X (Twitter)
       </a>
       <a class="link" href="https://instagram.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/Instagram.png" alt=""> Instagram</span>
+        <img class="link-icon" src="socials/Instagram.png" alt=""> Instagram
       </a>
       <a class="link" href="https://tiktok.com/@nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/TikTok.png" alt=""> TikTok</span>
+        <img class="link-icon" src="socials/TikTok.png" alt=""> TikTok
       </a>
       <a class="link" href="https://youtube.com/@nomorepainer228" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/YouTube.png" alt=""> YouTube</span>
+        <img class="link-icon" src="socials/YouTube.png" alt=""> YouTube
       </a>
-      <a class="link" href="#" onclick="copyId('nomorepainer228'); return false;">
-        <span class="link-label"><img class="link-icon" src="socials/Discord.png" alt=""> Discord</span>
+      <a class="link" href="https://discord.com/users/1520081730764148798" target="_blank" rel="noopener">
+        <img class="link-icon" src="socials/Discord.png" alt=""> Discord
       </a>
       <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><img class="link-icon" src="socials/Steam.png" alt=""> Steam</span>
+        <img class="link-icon" src="socials/Steam.png" alt=""> Steam
       </a>
     </div>
 
   </div>
 
   <script>
-    // Плавно скрываем экран приветствия за 1.5 сек
     function enterSite() {
       const welcome = document.getElementById('welcome');
       welcome.classList.add('hide');
       setTimeout(() => {
         welcome.style.display = 'none';
       }, 1500);
-    }
-
-    function copyId(id) {
-      navigator.clipboard.writeText(id).then(() => {
-        // небольшая визуальная вспышка при копировании
-        const link = event.currentTarget;
-        const oldBg = link.style.background;
-        link.style.background = 'rgba(47, 214, 255, 0.15)';
-        setTimeout(() => {
-          link.style.background = oldBg;
-        }, 400);
-      });
     }
   </script>
 </body>
