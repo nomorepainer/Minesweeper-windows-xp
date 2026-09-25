@@ -31,7 +31,79 @@
     overflow-x: hidden;
   }
 
-  /* мягкое RGB-свечение на фоне */
+  /* ====== ЭКРАН ПРИВЕТСТВИЯ ====== */
+  .welcome {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    z-index: 999;
+    opacity: 1;
+    transition: opacity 1.5s ease;
+    padding: 24px;
+  }
+
+  .welcome.hide {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .welcome h2 {
+    font-size: 26px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    background: linear-gradient(90deg, #e6ecff, #9db4ff, #6a5cff, #2fd6ff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rgb 5s ease infinite;
+  }
+
+  @keyframes rgb {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .continue-btn {
+    padding: 14px 42px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: var(--text);
+    background: rgba(20, 28, 50, 0.7);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .continue-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: -1;
+  }
+
+  .continue-btn:hover {
+    border-color: rgba(61,123,255,0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(61,123,255,0.35);
+  }
+
+  .continue-btn:hover::before { opacity: 0.18; }
+
+  /* ====== ОСНОВНОЙ КОНТЕНТ ====== */
   body::before {
     content: "";
     position: fixed;
@@ -87,12 +159,6 @@
     animation: rgb 6s ease infinite;
     color: #fff;
     box-shadow: 0 0 24px rgba(61,123,255,0.45);
-  }
-
-  @keyframes rgb {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
   }
 
   h1 {
@@ -189,10 +255,20 @@
     .card { padding: 30px 20px; }
     h1 { font-size: 20px; }
     a.link { padding: 11px 14px; font-size: 14px; }
+    .welcome h2 { font-size: 20px; }
+    .continue-btn { padding: 12px 32px; }
   }
 </style>
 </head>
 <body>
+
+  <!-- ====== ЭКРАН ПРИВЕТСТВИЯ ====== -->
+  <div class="welcome" id="welcome">
+    <h2>Добро пожаловать на сайт!</h2>
+    <button class="continue-btn" onclick="enterSite()">Продолжить</button>
+  </div>
+
+  <!-- ====== ОСНОВНОЙ КОНТЕНТ ====== -->
   <div class="card">
 
     <div class="avatar">N</div>
@@ -255,6 +331,16 @@
   </div>
 
   <script>
+    // Плавно скрываем экран приветствия за 1.5 сек
+    function enterSite() {
+      const welcome = document.getElementById('welcome');
+      welcome.classList.add('hide');
+      // через 1.5 секунды полностью убираем из DOM, чтобы не мешал
+      setTimeout(() => {
+        welcome.style.display = 'none';
+      }, 1500);
+    }
+
     function copyId(id) {
       navigator.clipboard.writeText(id).then(() => {
         const el = event.currentTarget.querySelector('.link-value');
