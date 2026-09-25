@@ -191,45 +191,38 @@
     display: block;
   }
 
-  .email-block {
-    margin-top: 28px;
-    padding: 20px 22px;
-    background: linear-gradient(135deg, rgba(61,123,255,0.08), rgba(106,92,255,0.08), rgba(47,214,255,0.08));
-    border: 1px solid rgba(61,123,255,0.35);
-    border-radius: 14px;
-    box-shadow: 0 0 24px rgba(61,123,255,0.15), inset 0 0 24px rgba(47,214,255,0.05);
+  /* ====== Ссылка на почту внизу ====== */
+  .email-footer {
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
     text-align: center;
   }
 
-  .email-label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2.5px;
-    color: var(--muted);
-    margin-bottom: 10px;
-  }
-
-  .email-link {
+  .email-footer a {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    font-size: 15px;
-    font-family: monospace;
-    color: var(--text);
+    gap: 8px;
+    color: var(--muted);
     text-decoration: none;
-    padding: 8px 14px;
-    border-radius: 10px;
-    transition: all 0.25s ease;
-    word-break: break-all;
+    font-size: 14px;
+    transition: color 0.25s ease;
   }
 
-  .email-link:hover {
+  .email-footer a:hover {
     color: var(--accent3);
-    background: rgba(47,214,255,0.08);
-    text-shadow: 0 0 12px rgba(47,214,255,0.6);
   }
 
-  .email-icon { font-size: 18px; }
+  .email-footer img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+    opacity: 0.8;
+    transition: opacity 0.25s ease;
+  }
+
+  .email-footer a:hover img { opacity: 1; }
 
   @media (max-width: 480px) {
     .card { padding: 30px 20px; }
@@ -238,7 +231,8 @@
     .link-icon { width: 26px; height: 26px; }
     .welcome h2 { font-size: 20px; }
     .continue-btn { padding: 12px 32px; }
-    .email-link { font-size: 13px; }
+    .email-footer a { font-size: 13px; }
+    .email-footer img { width: 16px; height: 16px; }
   }
 </style>
 </head>
@@ -255,66 +249,48 @@
     <h1>nomorepainer</h1>
 
     <div class="links">
-      <!-- Telegram -->
       <a class="link" href="https://t.me/qwerty81996"
          data-app="tg://resolve?domain=qwerty81996"
          target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Telegram.png" alt=""> Telegram
       </a>
-
-      <!-- Telegram-канал -->
       <a class="link" href="https://t.me/+xzVGkA56BkI5OTli"
          data-app="tg://join?invite=xzVGkA56BkI5OTli"
          target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Telegram.png" alt=""> Telegram-канал
       </a>
-
-      <!-- GitHub — только веб -->
       <a class="link" href="https://github.com/nomorepainer" target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Github.png" alt=""> GitHub
       </a>
-
-      <!-- X — только веб -->
       <a class="link" href="https://x.com/nomorepainer" target="_blank" rel="noopener">
         <img class="link-icon" src="socials/X.png" alt=""> X (Twitter)
       </a>
-
-      <!-- Instagram -->
       <a class="link" href="https://instagram.com/nomorepainer"
          data-app="instagram://user?username=nomorepainer"
          target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Instagram.png" alt=""> Instagram
       </a>
-
-      <!-- TikTok -->
       <a class="link" href="https://tiktok.com/@nomorepainer"
          data-app="snssdk1233://user/profile/nomorepainer"
          target="_blank" rel="noopener">
         <img class="link-icon" src="socials/TikTok.png" alt=""> TikTok
       </a>
-
-      <!-- YouTube — только веб -->
       <a class="link" href="https://youtube.com/@nomorepainer228" target="_blank" rel="noopener">
         <img class="link-icon" src="socials/YouTube.png" alt=""> YouTube
       </a>
-
-      <!-- Discord -->
       <a class="link" href="https://discord.com/users/1520081730764148798"
          data-app="discord://-/users/1520081730764148798"
          target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Discord.png" alt=""> Discord
       </a>
-
-      <!-- Steam — только веб -->
       <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Steam.png" alt=""> Steam
       </a>
     </div>
 
-    <div class="email-block">
-      <div class="email-label">Связь</div>
-      <a class="email-link" href="mailto:nomorepainer@gmail.com">
-        <span class="email-icon">✉️</span>
+    <div class="email-footer">
+      <a href="mailto:nomorepainer@gmail.com">
+        <img src="socials/Gmail.png" alt="">
         nomorepainer@gmail.com
       </a>
     </div>
@@ -330,21 +306,15 @@
       }, 1500);
     }
 
-    // Определяем, мобильное ли устройство
     const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
-    // Для ссылок с data-app на мобильных — открываем приложение
     if (isMobile) {
       document.querySelectorAll('a.link[data-app]').forEach(link => {
         link.addEventListener('click', function(e) {
           e.preventDefault();
           const appLink = this.dataset.app;
           const webLink = this.href;
-
-          // Пытаемся открыть приложение
           window.location.href = appLink;
-
-          // Если приложение не установлено — через 1.5 сек открываем веб-версию
           setTimeout(() => {
             window.location.href = webLink;
           }, 1500);
