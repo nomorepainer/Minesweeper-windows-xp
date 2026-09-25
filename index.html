@@ -3,852 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Сапёр</title>
+<title>nomorepainer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0e1a;
+    --card: #0f1526;
+    --border: #1b2540;
+    --text: #e6ecff;
+    --muted: #7a86a8;
+    --accent: #3d7bff;
+    --accent2: #6a5cff;
+    --accent3: #2fd6ff;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* мягкое RGB-свечение на фоне */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -50%;
+    background:
+      radial-gradient(circle at 25% 25%, rgba(61,123,255,0.18), transparent 45%),
+      radial-gradient(circle at 75% 75%, rgba(106,92,255,0.15), transparent 45%),
+      radial-gradient(circle at 50% 100%, rgba(47,214,255,0.12), transparent 50%);
+    animation: float 14s ease-in-out infinite alternate;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  @keyframes float {
+    0%   { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-3%, -3%) scale(1.05); }
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 520px;
+    background: rgba(15, 21, 38, 0.85);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow:
+      0 0 40px rgba(61, 123, 255, 0.12),
+      0 0 80px rgba(106, 92, 255, 0.08),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+    animation: fadeIn 0.8s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+    background-size: 200% 200%;
+    animation: rgb 6s ease infinite;
+    color: #fff;
+    box-shadow: 0 0 24px rgba(61,123,255,0.45);
+  }
+
+  @keyframes rgb {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  h1 {
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, #e6ecff, #9db4ff, #6a5cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-title {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin: 22px 0 12px;
+    padding-left: 4px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  a.link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 18px;
+    background: rgba(20, 28, 50, 0.6);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text);
+    text-decoration: none;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  a.link::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent3));
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  a.link:hover {
+    border-color: rgba(61,123,255,0.5);
+    background: rgba(30, 42, 75, 0.8);
+    transform: translateX(4px);
+    box-shadow: 0 0 20px rgba(61,123,255,0.2);
+  }
+
+  a.link:hover::before { opacity: 1; }
+
+  .link-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .link-icon {
+    width: 22px;
+    text-align: center;
+    font-size: 16px;
+    filter: grayscale(0.2);
+  }
+
+  .link-value {
+    color: var(--muted);
+    font-size: 13px;
+    font-family: monospace;
+  }
+
+  a.link:hover .link-value { color: var(--accent3); }
+
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 30px;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 30px 20px; }
+    h1 { font-size: 20px; }
+    a.link { padding: 11px 14px; font-size: 14px; }
+  }
+</style>
 </head>
-<body style="margin:0;">
+<body>
+  <div class="card">
 
-<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#808080; font-family:Tahoma,'MS Sans Serif',Verdana,sans-serif; padding:10px; box-sizing:border-box;">
+    <div class="avatar">N</div>
+    <h1>nomorepainer</h1>
 
-  <style>
-    .win-window {
-      background:#c0c0c0;
-      border-top:3px solid #ffffff;
-      border-left:3px solid #ffffff;
-      border-right:3px solid #404040;
-      border-bottom:3px solid #404040;
-      padding:3px;
-      box-shadow:2px 2px 0 #000;
-    }
-
-    .win-title {
-      background:linear-gradient(90deg,#000080,#1084d0);
-      color:#ffffff;
-      font-size:11px;
-      font-weight:bold;
-      padding:3px 6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:3px;
-    }
-
-    .win-title-btns { display:flex; gap:2px; }
-
-    .win-title-btn {
-      width:16px; height:14px;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #404040;
-      border-bottom:2px solid #404040;
-      font-size:9px;
-      line-height:9px;
-      text-align:center;
-      color:#000;
-      font-weight:bold;
-      padding:0;
-    }
-
-    .win-menu {
-      background:#c0c0c0;
-      font-size:11px;
-      color:#000;
-      padding:2px 4px;
-      border-bottom:1px solid #808080;
-      margin-bottom:3px;
-    }
-
-    .win-menu span { padding:2px 6px; cursor:pointer; }
-    .win-menu span u { text-decoration:underline; }
-
-    .win-body {
-      background:#c0c0c0;
-      padding:6px;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-    }
-
-    .field-frame {
-      border-top:3px solid #808080;
-      border-left:3px solid #808080;
-      border-right:3px solid #ffffff;
-      border-bottom:3px solid #ffffff;
-      padding:3px;
-      background:#c0c0c0;
-      display:inline-block;
-    }
-
-    .board {
-      display:grid;
-      grid-template-columns:repeat(8,26px);
-      grid-template-rows:repeat(8,26px);
-      gap:0;
-      background:#c0c0c0;
-    }
-
-    .cell {
-      width:26px; height:26px;
-      border:none; padding:0; margin:0;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #808080;
-      border-bottom:2px solid #808080;
-      font-family:Tahoma,'MS Sans Serif',sans-serif;
-      font-size:14px;
-      font-weight:bold;
-      color:#000;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      box-sizing:border-box;
-      outline:none;
-      -webkit-tap-highlight-color:transparent;
-      user-select:none;
-      line-height:1;
-    }
-
-    .cell:active {
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      background:#b0b0b0;
-    }
-
-    .cell.revealed {
-      border:1px solid #808080;
-      background:#c0c0c0;
-      cursor:default;
-    }
-
-    .cell.revealed:active {
-      border:1px solid #808080;
-      background:#c0c0c0;
-    }
-
-    .cell.flagged { color:#ff0000; font-size:14px; }
-
-    .cell.mine {
-      background:#c0c0c0;
-      border:1px solid #808080;
-      color:#000;
-      font-size:16px;
-    }
-
-    .cell.mine-hit {
-      background:#ff0000;
-      border:1px solid #808080;
-      color:#000;
-      font-size:16px;
-    }
-
-    .cell.n1 { color:#0000ff; }
-    .cell.n2 { color:#008000; }
-    .cell.n3 { color:#ff0000; }
-    .cell.n4 { color:#000080; }
-    .cell.n5 { color:#800000; }
-    .cell.n6 { color:#008080; }
-    .cell.n7 { color:#000000; }
-    .cell.n8 { color:#808080; }
-
-    .info-panel {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:6px;
-      padding:3px;
-      background:#c0c0c0;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-    }
-
-    .led {
-      background:#000;
-      color:#ff0000;
-      font-family:'Courier New',monospace;
-      font-size:20px;
-      font-weight:bold;
-      padding:1px 6px;
-      letter-spacing:2px;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      min-width:44px;
-      text-align:center;
-      line-height:1.1;
-    }
-
-    .smiley {
-      width:32px; height:32px;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #808080;
-      border-bottom:2px solid #808080;
-      font-size:20px;
-      line-height:1;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      cursor:pointer;
-      padding:0;
-      outline:none;
-      -webkit-tap-highlight-color:transparent;
-    }
-
-    .smiley:active {
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-    }
-
-    .status-bar {
-      margin-top:6px;
-      display:flex;
-      gap:4px;
-    }
-
-    .status-cell {
-      background:#c0c0c0;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      font-size:11px;
-      color:#000;
-      padding:2px 8px;
-      min-width:60px;
-    }
-
-    .mode-btn {
-      font-size:11px;
-      color:#000;
-      padding:2px 10px;
-      cursor:pointer;
-      outline:none;
-      -webkit-tap-highlight-color:transparent;
-      font-family:Tahoma,'MS Sans Serif',sans-serif;
-      flex:1;
-      text-align:center;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #808080;
-      border-bottom:2px solid #808080;
-    }
-
-    .mode-btn:active {
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      background:#b0b0b0;
-    }
-
-    .mode-btn.active {
-      background:#a0a0a0;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      font-weight:bold;
-    }
-
-    .msg-bar {
-      margin-top:4px;
-      background:#c0c0c0;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      font-size:11px;
-      color:#000;
-      padding:3px 6px;
-      text-align:center;
-      min-height:16px;
-    }
-
-    .msg-bar.win { color:#008000; font-weight:bold; }
-    .msg-bar.lose { color:#ff0000; font-weight:bold; }
-
-    .overlay {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.35);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      z-index:1000;
-      padding:10px;
-      box-sizing:border-box;
-    }
-
-    .overlay.show { display:flex; }
-
-    .help-window {
-      background:#c0c0c0;
-      border-top:3px solid #ffffff;
-      border-left:3px solid #ffffff;
-      border-right:3px solid #404040;
-      border-bottom:3px solid #404040;
-      padding:3px;
-      box-shadow:2px 2px 0 #000;
-      max-width:340px;
-      width:100%;
-    }
-
-    .help-title {
-      background:linear-gradient(90deg,#000080,#1084d0);
-      color:#ffffff;
-      font-size:11px;
-      font-weight:bold;
-      padding:3px 6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:3px;
-    }
-
-    .help-close {
-      width:16px; height:14px;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #404040;
-      border-bottom:2px solid #404040;
-      font-size:9px;
-      line-height:9px;
-      text-align:center;
-      color:#000;
-      font-weight:bold;
-      padding:0;
-      cursor:pointer;
-    }
-
-    .help-body {
-      background:#c0c0c0;
-      padding:8px;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      font-size:11px;
-      color:#000;
-      line-height:1.5;
-    }
-
-    .help-body p { margin:0 0 6px 0; }
-
-    .help-author {
-      margin-top:10px;
-      padding-top:6px;
-      border-top:1px solid #808080;
-      text-align:right;
-      font-size:11px;
-      color:#000080;
-      font-weight:bold;
-    }
-
-    .easter-window {
-      background:#c0c0c0;
-      border-top:3px solid #ffffff;
-      border-left:3px solid #ffffff;
-      border-right:3px solid #404040;
-      border-bottom:3px solid #404040;
-      padding:3px;
-      box-shadow:2px 2px 0 #000;
-      max-width:340px;
-      width:100%;
-    }
-
-    .easter-title {
-      background:linear-gradient(90deg,#800000,#d01010);
-      color:#ffffff;
-      font-size:11px;
-      font-weight:bold;
-      padding:3px 6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:3px;
-    }
-
-    .easter-body {
-      background:#c0c0c0;
-      padding:14px 10px;
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-      font-size:13px;
-      color:#000;
-      line-height:1.5;
-      text-align:center;
-      font-weight:bold;
-    }
-
-    .easter-ok {
-      margin-top:10px;
-      font-size:11px;
-      padding:3px 20px;
-      background:#c0c0c0;
-      border-top:2px solid #ffffff;
-      border-left:2px solid #ffffff;
-      border-right:2px solid #808080;
-      border-bottom:2px solid #808080;
-      cursor:pointer;
-      font-family:Tahoma,'MS Sans Serif',sans-serif;
-    }
-
-    .easter-ok:active {
-      border-top:2px solid #808080;
-      border-left:2px solid #808080;
-      border-right:2px solid #ffffff;
-      border-bottom:2px solid #ffffff;
-    }
-  </style>
-
-  <div class="win-window">
-    <div class="win-title">
-      <span>Сапёр</span>
-      <div class="win-title-btns">
-        <div class="win-title-btn">_</div>
-        <div class="win-title-btn">□</div>
-        <div class="win-title-btn">×</div>
-      </div>
+    <div class="section-title">Соцсети</div>
+    <div class="links">
+      <a class="link" href="https://t.me/qwerty81996" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">✈️</span> Telegram</span>
+        <span class="link-value">@qwerty81996</span>
+      </a>
+      <a class="link" href="https://t.me/+xzVGkA56BkI5OTli" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">📢</span> Telegram-канал</span>
+        <span class="link-value">приватный</span>
+      </a>
+      <a class="link" href="https://github.com/nomorepainer" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">🐙</span> GitHub</span>
+        <span class="link-value">nomorepainer</span>
+      </a>
+      <a class="link" href="https://x.com/nomorepainer" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">𝕏</span> X (Twitter)</span>
+        <span class="link-value">@nomorepainer</span>
+      </a>
+      <a class="link" href="https://instagram.com/nomorepainer" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">📸</span> Instagram</span>
+        <span class="link-value">@nomorepainer</span>
+      </a>
+      <a class="link" href="https://vk.com/nomorepainer" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">🔵</span> ВКонтакте</span>
+        <span class="link-value">@nomorepainer</span>
+      </a>
     </div>
 
-    <div class="win-menu">
-      <span id="menuHelp"><u>С</u>правка</span>
+    <div class="section-title">Игры</div>
+    <div class="links">
+      <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
+        <span class="link-label"><span class="link-icon">🎮</span> Steam</span>
+        <span class="link-value">nomorepainer</span>
+      </a>
+      <a class="link" href="#" onclick="copyId('2VGGJC9VGC'); return false;">
+        <span class="link-label"><span class="link-icon">⭐</span> Brawl Stars</span>
+        <span class="link-value">#2VGGJC9VGC</span>
+      </a>
     </div>
 
-    <div class="win-body">
-      <div class="info-panel">
-        <div class="led" id="mineCount">010</div>
-        <button class="smiley" id="smileyBtn">🙂</button>
-        <div class="led" id="timerLed">000</div>
-      </div>
+    <div class="footer">© 2025 nomorepainer</div>
 
-      <div class="field-frame">
-        <div class="board" id="board"></div>
-      </div>
-
-      <div class="status-bar">
-        <button class="mode-btn active" id="digBtn">КОПАТЬ</button>
-        <button class="mode-btn" id="flagBtn">ФЛАГ</button>
-      </div>
-
-      <div class="msg-bar" id="msg"></div>
-    </div>
-  </div>
-
-  <div class="overlay" id="helpOverlay">
-    <div class="help-window">
-      <div class="help-title">
-        <span>Справка — Сапёр</span>
-        <button class="help-close" id="helpClose">×</button>
-      </div>
-      <div class="help-body">
-        <p><b>Цель игры:</b> открыть все клетки поля, кроме тех, где находятся мины.</p>
-        <p><b>Управление:</b> нажмите на клетку, чтобы открыть её. Переключитесь в режим «ФЛАГ» или нажмите правой кнопкой мыши, чтобы поставить флажок на предполагаемой мине.</p>
-        <p><b>Цифры:</b> число показывает, сколько мин находится в соседних клетках (по горизонтали, вертикали и диагонали).</p>
-        <p><b>Победа:</b> все безопасные клетки открыты.</p>
-        <p><b>Поражение:</b> вы открыли клетку с миной.</p>
-        <p><b>Горячая клавиша:</b> клавиша <b>F</b> переключает режимы «КОПАТЬ» и «ФЛАГ».</p>
-        <div class="help-author">автор: nomorepainer</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="overlay" id="easterOverlay">
-    <div class="easter-window">
-      <div class="easter-title">
-        <span>Сообщение</span>
-        <button class="help-close" id="easterClose">×</button>
-      </div>
-      <div class="easter-body">
-        <div id="easterText"></div>
-        <button class="easter-ok" id="easterOk">OK</button>
-      </div>
-    </div>
   </div>
 
   <script>
-    (function() {
-      var SIZE = 8;
-      var MINES = 10;
-
-      var board = document.getElementById('board');
-      var mineCountEl = document.getElementById('mineCount');
-      var timerLedEl = document.getElementById('timerLed');
-      var smileyBtn = document.getElementById('smileyBtn');
-      var msgEl = document.getElementById('msg');
-      var digBtn = document.getElementById('digBtn');
-      var flagBtn = document.getElementById('flagBtn');
-      var menuHelp = document.getElementById('menuHelp');
-      var helpOverlay = document.getElementById('helpOverlay');
-      var helpClose = document.getElementById('helpClose');
-      var easterOverlay = document.getElementById('easterOverlay');
-      var easterText = document.getElementById('easterText');
-      var easterClose = document.getElementById('easterClose');
-      var easterOk = document.getElementById('easterOk');
-
-      var grid = [];
-      var cells = [];
-      var flagsPlaced = 0;
-      var gameOver = false;
-      var firstClick = true;
-      var flagMode = false;
-      var timer = 0;
-      var timerInterval = null;
-      var timerStarted = false;
-      var loseStreak = 0;
-      var easterShown = {};
-
-      function pad3(n) {
-        if (n < 0) n = 0;
-        if (n > 999) n = 999;
-        var s = String(n);
-        while (s.length < 3) s = '0' + s;
-        return s;
-      }
-
-      function makeEmptyGrid() {
-        var g = [];
-        for (var y = 0; y < SIZE; y++) {
-          var row = [];
-          for (var x = 0; x < SIZE; x++) {
-            row.push({ mine:false, revealed:false, flagged:false, count:0 });
-          }
-          g.push(row);
-        }
-        return g;
-      }
-
-      function placeMines(safeX, safeY) {
-        var placed = 0;
-        while (placed < MINES) {
-          var x = Math.floor(Math.random() * SIZE);
-          var y = Math.floor(Math.random() * SIZE);
-          if (grid[y][x].mine) continue;
-          if (Math.abs(x - safeX) <= 1 && Math.abs(y - safeY) <= 1) continue;
-          grid[y][x].mine = true;
-          placed++;
-        }
-        for (var y = 0; y < SIZE; y++) {
-          for (var x = 0; x < SIZE; x++) {
-            if (grid[y][x].mine) continue;
-            var c = 0;
-            for (var dy = -1; dy <= 1; dy++) {
-              for (var dx = -1; dx <= 1; dx++) {
-                if (dx === 0 && dy === 0) continue;
-                var nx = x + dx, ny = y + dy;
-                if (nx < 0 || ny < 0 || nx >= SIZE || ny >= SIZE) continue;
-                if (grid[ny][nx].mine) c++;
-              }
-            }
-            grid[y][x].count = c;
-          }
-        }
-      }
-
-      function render() {
-        board.innerHTML = '';
-        cells = [];
-        for (var y = 0; y < SIZE; y++) {
-          var rowCells = [];
-          for (var x = 0; x < SIZE; x++) {
-            var btn = document.createElement('button');
-            btn.className = 'cell';
-            btn.dataset.x = x;
-            btn.dataset.y = y;
-            btn.addEventListener('click', onCellClick);
-            btn.addEventListener('contextmenu', onCellRightClick);
-            board.appendChild(btn);
-            rowCells.push(btn);
-          }
-          cells.push(rowCells);
-        }
-        updateCellVisuals();
-        updateCounters();
-      }
-
-      function updateCellVisuals() {
-        for (var y = 0; y < SIZE; y++) {
-          for (var x = 0; x < SIZE; x++) {
-            var cell = grid[y][x];
-            var btn = cells[y][x];
-            btn.className = 'cell';
-            btn.textContent = '';
-            if (cell.revealed) {
-              btn.classList.add('revealed');
-              if (cell.mine) {
-                btn.classList.add('mine');
-                btn.textContent = '✱';
-              } else if (cell.count > 0) {
-                btn.classList.add('n' + cell.count);
-                btn.textContent = cell.count;
-              }
-            } else if (cell.flagged) {
-              btn.classList.add('flagged');
-              btn.textContent = '⚑';
-            }
-          }
-        }
-      }
-
-      function updateCounters() {
-        mineCountEl.textContent = pad3(MINES - flagsPlaced);
-      }
-
-      function updateModeButtons() {
-        if (flagMode) {
-          flagBtn.classList.add('active');
-          digBtn.classList.remove('active');
-        } else {
-          digBtn.classList.add('active');
-          flagBtn.classList.remove('active');
-        }
-      }
-
-      function startTimer() {
-        if (timerStarted) return;
-        timerStarted = true;
-        timer = 0;
-        timerLedEl.textContent = pad3(0);
-        timerInterval = setInterval(function() {
-          timer++;
-          if (timer > 999) timer = 999;
-          timerLedEl.textContent = pad3(timer);
-        }, 1000);
-      }
-
-      function stopTimer() {
-        if (timerInterval) {
-          clearInterval(timerInterval);
-          timerInterval = null;
-        }
-      }
-
-      function reveal(x, y) {
-        if (x < 0 || y < 0 || x >= SIZE || y >= SIZE) return;
-        var cell = grid[y][x];
-        if (cell.revealed || cell.flagged) return;
-        cell.revealed = true;
-        if (cell.mine) return;
-        if (cell.count === 0) {
-          for (var dy = -1; dy <= 1; dy++) {
-            for (var dx = -1; dx <= 1; dx++) {
-              if (dx === 0 && dy === 0) continue;
-              reveal(x + dx, y + dy);
-            }
-          }
-        }
-      }
-
-      function checkWin() {
-        for (var y = 0; y < SIZE; y++) {
-          for (var x = 0; x < SIZE; x++) {
-            var c = grid[y][x];
-            if (!c.mine && !c.revealed) return false;
-          }
-        }
-        return true;
-      }
-
-      function showEaster(text) {
-        easterText.textContent = text;
-        easterOverlay.classList.add('show');
-      }
-
-      function endGame(won, hitX, hitY) {
-        gameOver = true;
-        stopTimer();
-        for (var y = 0; y < SIZE; y++) {
-          for (var x = 0; x < SIZE; x++) {
-            if (grid[y][x].mine) grid[y][x].revealed = true;
-          }
-        }
-        updateCellVisuals();
-        for (var y = 0; y < SIZE; y++) {
-          for (var x = 0; x < SIZE; x++) {
-            if (grid[y][x].mine) {
-              if (won) {
-                cells[y][x].textContent = '⚑';
-                cells[y][x].style.color = '#ff0000';
-              } else {
-                cells[y][x].textContent = '✱';
-                if (x === hitX && y === hitY) {
-                  cells[y][x].classList.add('mine-hit');
-                }
-              }
-            }
-          }
-        }
-        if (won) {
-          loseStreak = 0;
-          smileyBtn.textContent = '🥵';
-          msgEl.textContent = 'Победа!';
-          msgEl.className = 'msg-bar win';
-        } else {
-          loseStreak++;
-          smileyBtn.textContent = '🍆💦';
-          msgEl.textContent = 'Взрыв!';
-          msgEl.className = 'msg-bar lose';
-          if (loseStreak === 10 && !easterShown[10]) {
-            easterShown[10] = true;
-            showEaster('Учись играть!');
-          } else if (loseStreak === 20 && !easterShown[20]) {
-            easterShown[20] = true;
-            showEaster('Ты с первого раза не понял? Учись играть!');
-          } else if (loseStreak === 100 && !easterShown[100]) {
-            easterShown[100] = true;
-            showEaster('Ебать ты лох вали нахуй с моего сапёра!');
-          }
-        }
-      }
-
-      function onCellClick(e) {
-        if (gameOver) return;
-        var x = parseInt(e.currentTarget.dataset.x);
-        var y = parseInt(e.currentTarget.dataset.y);
-        var cell = grid[y][x];
-
-        if (flagMode) {
-          if (cell.revealed) return;
-          if (cell.flagged) {
-            cell.flagged = false;
-            flagsPlaced--;
-          } else {
-            if (flagsPlaced >= MINES) return;
-            cell.flagged = true;
-            flagsPlaced++;
-          }
-          updateCellVisuals();
-          updateCounters();
-          return;
-        }
-
-        if (cell.flagged || cell.revealed) return;
-
-        if (firstClick) {
-          firstClick = false;
-          placeMines(x, y);
-          startTimer();
-        }
-
-        if (cell.mine) {
-          cell.revealed = true;
-          updateCellVisuals();
-          endGame(false, x, y);
-          return;
-        }
-
-        reveal(x, y);
-        updateCellVisuals();
-
-        if (checkWin()) endGame(true);
-      }
-
-      function onCellRightClick(e) {
-        e.preventDefault();
-        if (gameOver) return;
-        var x = parseInt(e.currentTarget.dataset.x);
-        var y = parseInt(e.currentTarget.dataset.y);
-        var cell = grid[y][x];
-        if (cell.revealed) return;
-        if (cell.flagged) {
-          cell.flagged = false;
-          flagsPlaced--;
-        } else {
-          if (flagsPlaced >= MINES) return;
-          cell.flagged = true;
-          flagsPlaced++;
-        }
-        updateCellVisuals();
-        updateCounters();
-      }
-
-      function startGame() {
-        stopTimer();
-        grid = makeEmptyGrid();
-        flagsPlaced = 0;
-        gameOver = false;
-        firstClick = true;
-        timer = 0;
-        timerStarted = false;
-        timerLedEl.textContent = '000';
-        smileyBtn.textContent = '😶‍🌫️';
-        msgEl.textContent = '';
-        msgEl.className = 'msg-bar';
-        render();
-      }
-
-      smileyBtn.addEventListener('click', startGame);
-
-      digBtn.addEventListener('click', function() {
-        flagMode = false;
-        updateModeButtons();
+    function copyId(id) {
+      navigator.clipboard.writeText(id).then(() => {
+        const el = event.currentTarget.querySelector('.link-value');
+        const old = el.textContent;
+        el.textContent = 'скопировано ✓';
+        el.style.color = '#2fd6ff';
+        setTimeout(() => {
+          el.textContent = old;
+          el.style.color = '';
+        }, 1200);
       });
-
-      flagBtn.addEventListener('click', function() {
-        flagMode = true;
-        updateModeButtons();
-      });
-
-      menuHelp.addEventListener('click', function() {
-        helpOverlay.classList.add('show');
-      });
-
-      helpClose.addEventListener('click', function() {
-        helpOverlay.classList.remove('show');
-      });
-
-      helpOverlay.addEventListener('click', function(e) {
-        if (e.target === helpOverlay) {
-          helpOverlay.classList.remove('show');
-        }
-      });
-
-      easterClose.addEventListener('click', function() {
-        easterOverlay.classList.remove('show');
-      });
-
-      easterOk.addEventListener('click', function() {
-        easterOverlay.classList.remove('show');
-      });
-
-      easterOverlay.addEventListener('click', function(e) {
-        if (e.target === easterOverlay) {
-          easterOverlay.classList.remove('show');
-        }
-      });
-
-      board.addEventListener('contextmenu', function(e) {
-        e.preventDefault();
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'f' || e.key === 'F' || e.key === 'а' || e.key === 'А') {
-          flagMode = !flagMode;
-          updateModeButtons();
-        }
-      });
-
-      startGame();
-      updateModeButtons();
-    })();
+    }
   </script>
-
-</div>
-
 </body>
 </html>
