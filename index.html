@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сапёр</title>
+</head>
+<body style="margin:0;">
+
 <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; background:#808080; font-family:Tahoma,'MS Sans Serif',Verdana,sans-serif; padding:10px; box-sizing:border-box;">
 
   <style>
@@ -49,7 +58,7 @@
       margin-bottom:3px;
     }
 
-    .win-menu span { padding:2px 6px; }
+    .win-menu span { padding:2px 6px; cursor:pointer; }
     .win-menu span u { text-decoration:underline; }
 
     .win-body {
@@ -269,6 +278,84 @@
 
     .msg-bar.win { color:#008000; font-weight:bold; }
     .msg-bar.lose { color:#ff0000; font-weight:bold; }
+
+    .overlay {
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      padding:10px;
+      box-sizing:border-box;
+    }
+
+    .overlay.show { display:flex; }
+
+    .help-window {
+      background:#c0c0c0;
+      border-top:3px solid #ffffff;
+      border-left:3px solid #ffffff;
+      border-right:3px solid #404040;
+      border-bottom:3px solid #404040;
+      padding:3px;
+      box-shadow:2px 2px 0 #000;
+      max-width:340px;
+      width:100%;
+    }
+
+    .help-title {
+      background:linear-gradient(90deg,#000080,#1084d0);
+      color:#ffffff;
+      font-size:11px;
+      font-weight:bold;
+      padding:3px 6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:3px;
+    }
+
+    .help-close {
+      width:16px; height:14px;
+      background:#c0c0c0;
+      border-top:2px solid #ffffff;
+      border-left:2px solid #ffffff;
+      border-right:2px solid #404040;
+      border-bottom:2px solid #404040;
+      font-size:9px;
+      line-height:9px;
+      text-align:center;
+      color:#000;
+      font-weight:bold;
+      padding:0;
+      cursor:pointer;
+    }
+
+    .help-body {
+      background:#c0c0c0;
+      padding:8px;
+      border-top:2px solid #808080;
+      border-left:2px solid #808080;
+      border-right:2px solid #ffffff;
+      border-bottom:2px solid #ffffff;
+      font-size:11px;
+      color:#000;
+      line-height:1.5;
+    }
+
+    .help-body p { margin:0 0 6px 0; }
+
+    .help-author {
+      margin-top:10px;
+      padding-top:6px;
+      border-top:1px solid #808080;
+      text-align:right;
+      font-size:11px;
+      color:#000080;
+      font-weight:bold;
+    }
   </style>
 
   <div class="win-window">
@@ -282,8 +369,7 @@
     </div>
 
     <div class="win-menu">
-      <span><u>И</u>гра</span>
-      <span><u>С</u>правка</span>
+      <span id="menuHelp"><u>С</u>правка</span>
     </div>
 
     <div class="win-body">
@@ -306,6 +392,24 @@
     </div>
   </div>
 
+  <div class="overlay" id="helpOverlay">
+    <div class="help-window">
+      <div class="help-title">
+        <span>Справка — Сапёр</span>
+        <button class="help-close" id="helpClose">×</button>
+      </div>
+      <div class="help-body">
+        <p><b>Цель игры:</b> открыть все клетки поля, кроме тех, где находятся мины.</p>
+        <p><b>Управление:</b> нажмите на клетку, чтобы открыть её. Переключитесь в режим «ФЛАГ» или нажмите правой кнопкой мыши, чтобы поставить флажок на предполагаемой мине.</p>
+        <p><b>Цифры:</b> число показывает, сколько мин находится в соседних клетках (по горизонтали, вертикали и диагонали).</p>
+        <p><b>Победа:</b> все безопасные клетки открыты.</p>
+        <p><b>Поражение:</b> вы открыли клетку с миной.</p>
+        <p><b>Горячая клавиша:</b> клавиша <b>F</b> переключает режимы «КОПАТЬ» и «ФЛАГ».</p>
+        <div class="help-author">nomorepainer</div>
+      </div>
+    </div>
+  </div>
+
   <script>
     (function() {
       var SIZE = 8;
@@ -318,6 +422,9 @@
       var msgEl = document.getElementById('msg');
       var digBtn = document.getElementById('digBtn');
       var flagBtn = document.getElementById('flagBtn');
+      var menuHelp = document.getElementById('menuHelp');
+      var helpOverlay = document.getElementById('helpOverlay');
+      var helpClose = document.getElementById('helpClose');
 
       var grid = [];
       var cells = [];
@@ -603,6 +710,20 @@
         updateModeButtons();
       });
 
+      menuHelp.addEventListener('click', function() {
+        helpOverlay.classList.add('show');
+      });
+
+      helpClose.addEventListener('click', function() {
+        helpOverlay.classList.remove('show');
+      });
+
+      helpOverlay.addEventListener('click', function(e) {
+        if (e.target === helpOverlay) {
+          helpOverlay.classList.remove('show');
+        }
+      });
+
       board.addEventListener('contextmenu', function(e) {
         e.preventDefault();
       });
@@ -620,3 +741,6 @@
   </script>
 
 </div>
+
+</body>
+</html>
