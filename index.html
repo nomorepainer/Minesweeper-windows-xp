@@ -172,15 +172,6 @@
     background-clip: text;
   }
 
-  .section-title {
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--muted);
-    margin: 22px 0 12px;
-    padding-left: 4px;
-  }
-
   .links {
     display: flex;
     flex-direction: column;
@@ -230,9 +221,9 @@
 
   .link-icon {
     width: 22px;
-    text-align: center;
-    font-size: 16px;
-    filter: grayscale(0.2);
+    height: 22px;
+    object-fit: contain;
+    display: block;
   }
 
   .link-value {
@@ -274,55 +265,42 @@
     <div class="avatar">N</div>
     <h1>nomorepainer</h1>
 
-    <div class="section-title">Соцсети</div>
     <div class="links">
       <a class="link" href="https://t.me/qwerty81996" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">✈️</span> Telegram</span>
+        <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram</span>
         <span class="link-value">@qwerty81996</span>
       </a>
       <a class="link" href="https://t.me/+xzVGkA56BkI5OTli" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">📢</span> Telegram-канал</span>
+        <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram-канал</span>
         <span class="link-value">приватный</span>
       </a>
       <a class="link" href="https://github.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">🐙</span> GitHub</span>
+        <span class="link-label"><img class="link-icon" src="socials/Github.png" alt=""> GitHub</span>
         <span class="link-value">nomorepainer</span>
       </a>
       <a class="link" href="https://x.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">𝕏</span> X (Twitter)</span>
+        <span class="link-label"><img class="link-icon" src="socials/X.png" alt=""> X (Twitter)</span>
         <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://instagram.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">📸</span> Instagram</span>
-        <span class="link-value">@nomorepainer</span>
-      </a>
-      <a class="link" href="https://vk.com/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">🔵</span> ВКонтакте</span>
+        <span class="link-label"><img class="link-icon" src="socials/Instagram.png" alt=""> Instagram</span>
         <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://tiktok.com/@nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">🎵</span> TikTok</span>
+        <span class="link-label"><img class="link-icon" src="socials/TikTok.png" alt=""> TikTok</span>
         <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://youtube.com/@nomorepainer228" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">▶️</span> YouTube</span>
+        <span class="link-label"><img class="link-icon" src="socials/YouTube.png" alt=""> YouTube</span>
         <span class="link-value">@nomorepainer228</span>
       </a>
       <a class="link" href="#" onclick="copyId('nomorepainer228'); return false;">
-        <span class="link-label"><span class="link-icon">💬</span> Discord</span>
+        <span class="link-label"><img class="link-icon" src="socials/Discord.png" alt=""> Discord</span>
         <span class="link-value">nomorepainer228</span>
       </a>
-    </div>
-
-    <div class="section-title">Игры</div>
-    <div class="links">
       <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
-        <span class="link-label"><span class="link-icon">🎮</span> Steam</span>
+        <span class="link-label"><img class="link-icon" src="socials/Steam.png" alt=""> Steam</span>
         <span class="link-value">nomorepainer</span>
-      </a>
-      <a class="link" href="#" onclick="copyId('2VGGJC9VGC'); return false;">
-        <span class="link-label"><span class="link-icon">⭐</span> Brawl Stars</span>
-        <span class="link-value">#2VGGJC9VGC</span>
       </a>
     </div>
 
@@ -335,7 +313,6 @@
     function enterSite() {
       const welcome = document.getElementById('welcome');
       welcome.classList.add('hide');
-      // через 1.5 секунды полностью убираем из DOM, чтобы не мешал
       setTimeout(() => {
         welcome.style.display = 'none';
       }, 1500);
