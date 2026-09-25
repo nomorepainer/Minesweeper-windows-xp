@@ -181,7 +181,6 @@
   a.link {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 13px 18px;
     background: rgba(20, 28, 50, 0.6);
     border: 1px solid var(--border);
@@ -226,22 +225,6 @@
     display: block;
   }
 
-  .link-value {
-    color: var(--muted);
-    font-size: 13px;
-    font-family: monospace;
-  }
-
-  a.link:hover .link-value { color: var(--accent3); }
-
-  .footer {
-    text-align: center;
-    color: var(--muted);
-    font-size: 12px;
-    margin-top: 30px;
-    opacity: 0.6;
-  }
-
   @media (max-width: 480px) {
     .card { padding: 30px 20px; }
     h1 { font-size: 20px; }
@@ -268,43 +251,32 @@
     <div class="links">
       <a class="link" href="https://t.me/qwerty81996" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram</span>
-        <span class="link-value">@qwerty81996</span>
       </a>
       <a class="link" href="https://t.me/+xzVGkA56BkI5OTli" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/Telegram.png" alt=""> Telegram-канал</span>
-        <span class="link-value">приватный</span>
       </a>
       <a class="link" href="https://github.com/nomorepainer" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/Github.png" alt=""> GitHub</span>
-        <span class="link-value">nomorepainer</span>
       </a>
       <a class="link" href="https://x.com/nomorepainer" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/X.png" alt=""> X (Twitter)</span>
-        <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://instagram.com/nomorepainer" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/Instagram.png" alt=""> Instagram</span>
-        <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://tiktok.com/@nomorepainer" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/TikTok.png" alt=""> TikTok</span>
-        <span class="link-value">@nomorepainer</span>
       </a>
       <a class="link" href="https://youtube.com/@nomorepainer228" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/YouTube.png" alt=""> YouTube</span>
-        <span class="link-value">@nomorepainer228</span>
       </a>
       <a class="link" href="#" onclick="copyId('nomorepainer228'); return false;">
         <span class="link-label"><img class="link-icon" src="socials/Discord.png" alt=""> Discord</span>
-        <span class="link-value">nomorepainer228</span>
       </a>
       <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
         <span class="link-label"><img class="link-icon" src="socials/Steam.png" alt=""> Steam</span>
-        <span class="link-value">nomorepainer</span>
       </a>
     </div>
-
-    <div class="footer">© 2025 nomorepainer</div>
 
   </div>
 
@@ -320,14 +292,13 @@
 
     function copyId(id) {
       navigator.clipboard.writeText(id).then(() => {
-        const el = event.currentTarget.querySelector('.link-value');
-        const old = el.textContent;
-        el.textContent = 'скопировано ✓';
-        el.style.color = '#2fd6ff';
+        // небольшая визуальная вспышка при копировании
+        const link = event.currentTarget;
+        const oldBg = link.style.background;
+        link.style.background = 'rgba(47, 214, 255, 0.15)';
         setTimeout(() => {
-          el.textContent = old;
-          el.style.color = '';
-        }, 1200);
+          link.style.background = oldBg;
+        }, 400);
       });
     }
   </script>
