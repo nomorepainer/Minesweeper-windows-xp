@@ -356,6 +356,64 @@
       color:#000080;
       font-weight:bold;
     }
+
+    .easter-window {
+      background:#c0c0c0;
+      border-top:3px solid #ffffff;
+      border-left:3px solid #ffffff;
+      border-right:3px solid #404040;
+      border-bottom:3px solid #404040;
+      padding:3px;
+      box-shadow:2px 2px 0 #000;
+      max-width:340px;
+      width:100%;
+    }
+
+    .easter-title {
+      background:linear-gradient(90deg,#800000,#d01010);
+      color:#ffffff;
+      font-size:11px;
+      font-weight:bold;
+      padding:3px 6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:3px;
+    }
+
+    .easter-body {
+      background:#c0c0c0;
+      padding:14px 10px;
+      border-top:2px solid #808080;
+      border-left:2px solid #808080;
+      border-right:2px solid #ffffff;
+      border-bottom:2px solid #ffffff;
+      font-size:13px;
+      color:#000;
+      line-height:1.5;
+      text-align:center;
+      font-weight:bold;
+    }
+
+    .easter-ok {
+      margin-top:10px;
+      font-size:11px;
+      padding:3px 20px;
+      background:#c0c0c0;
+      border-top:2px solid #ffffff;
+      border-left:2px solid #ffffff;
+      border-right:2px solid #808080;
+      border-bottom:2px solid #808080;
+      cursor:pointer;
+      font-family:Tahoma,'MS Sans Serif',sans-serif;
+    }
+
+    .easter-ok:active {
+      border-top:2px solid #808080;
+      border-left:2px solid #808080;
+      border-right:2px solid #ffffff;
+      border-bottom:2px solid #ffffff;
+    }
   </style>
 
   <div class="win-window">
@@ -405,7 +463,20 @@
         <p><b>Победа:</b> все безопасные клетки открыты.</p>
         <p><b>Поражение:</b> вы открыли клетку с миной.</p>
         <p><b>Горячая клавиша:</b> клавиша <b>F</b> переключает режимы «КОПАТЬ» и «ФЛАГ».</p>
-        <div class="help-author">nomorepainer</div>
+        <div class="help-author">автор: nomorepainer</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="overlay" id="easterOverlay">
+    <div class="easter-window">
+      <div class="easter-title">
+        <span>Сообщение</span>
+        <button class="help-close" id="easterClose">×</button>
+      </div>
+      <div class="easter-body">
+        <div id="easterText"></div>
+        <button class="easter-ok" id="easterOk">OK</button>
       </div>
     </div>
   </div>
@@ -425,6 +496,10 @@
       var menuHelp = document.getElementById('menuHelp');
       var helpOverlay = document.getElementById('helpOverlay');
       var helpClose = document.getElementById('helpClose');
+      var easterOverlay = document.getElementById('easterOverlay');
+      var easterText = document.getElementById('easterText');
+      var easterClose = document.getElementById('easterClose');
+      var easterOk = document.getElementById('easterOk');
 
       var grid = [];
       var cells = [];
@@ -435,6 +510,8 @@
       var timer = 0;
       var timerInterval = null;
       var timerStarted = false;
+      var loseStreak = 0;
+      var easterShown = {};
 
       function pad3(n) {
         if (n < 0) n = 0;
@@ -587,6 +664,11 @@
         return true;
       }
 
+      function showEaster(text) {
+        easterText.textContent = text;
+        easterOverlay.classList.add('show');
+      }
+
       function endGame(won, hitX, hitY) {
         gameOver = true;
         stopTimer();
@@ -612,13 +694,25 @@
           }
         }
         if (won) {
+          loseStreak = 0;
           smileyBtn.textContent = '🥵';
           msgEl.textContent = 'Победа!';
           msgEl.className = 'msg-bar win';
         } else {
+          loseStreak++;
           smileyBtn.textContent = '🍆💦';
           msgEl.textContent = 'Взрыв!';
           msgEl.className = 'msg-bar lose';
+          if (loseStreak === 10 && !easterShown[10]) {
+            easterShown[10] = true;
+            showEaster('Учись играть!');
+          } else if (loseStreak === 20 && !easterShown[20]) {
+            easterShown[20] = true;
+            showEaster('Ты с первого раза не понял? Учись играть!');
+          } else if (loseStreak === 100 && !easterShown[100]) {
+            easterShown[100] = true;
+            showEaster('Ебать ты лох вали нахуй с моего сапёра!');
+          }
         }
       }
 
@@ -721,6 +815,20 @@
       helpOverlay.addEventListener('click', function(e) {
         if (e.target === helpOverlay) {
           helpOverlay.classList.remove('show');
+        }
+      });
+
+      easterClose.addEventListener('click', function() {
+        easterOverlay.classList.remove('show');
+      });
+
+      easterOk.addEventListener('click', function() {
+        easterOverlay.classList.remove('show');
+      });
+
+      easterOverlay.addEventListener('click', function(e) {
+        if (e.target === easterOverlay) {
+          easterOverlay.classList.remove('show');
         }
       });
 
