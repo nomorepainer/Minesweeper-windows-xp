@@ -4,10 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>nomorepainer</title>
-
-<!-- ====== FAVICON ====== -->
 <link rel="icon" type="image/png" href="socials/duck.png">
-
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -35,7 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* ====== ЭКРАН ПРИВЕТСТВИЯ ====== */
   .welcome {
     position: fixed;
     inset: 0;
@@ -90,7 +86,6 @@
     box-shadow: 0 0 28px rgba(61,123,255,0.35);
   }
 
-  /* ====== ЖИВОЙ ГРАДИЕНТ НА ФОНЕ ====== */
   body::before {
     content: "";
     position: fixed;
@@ -181,8 +176,6 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-
-    /* Анимация появления */
     opacity: 0;
     transform: translateY(12px);
     animation: linkAppear 0.5s ease forwards;
@@ -195,7 +188,6 @@
     }
   }
 
-  /* Задержки появления для каждой ссылки */
   a.link:nth-child(1) { animation-delay: 0.05s; }
   a.link:nth-child(2) { animation-delay: 0.10s; }
   a.link:nth-child(3) { animation-delay: 0.15s; }
@@ -250,21 +242,18 @@
 
   .email-footer a:hover img { opacity: 1; }
 
-  /* ====== СЧЁТЧИК ПОСЕЩЕНИЙ ====== */
   .visitor-badge {
-    margin-top: 18px;
+    margin-top: 22px;
     display: flex;
     justify-content: center;
   }
 
   .visitor-badge img {
-    height: 20px;
-    opacity: 0.85;
-    transition: opacity 0.25s ease;
-  }
-
-  .visitor-badge img:hover {
-    opacity: 1;
+    height: 44px;
+    width: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 0 18px rgba(61,123,255,0.25);
   }
 
   @media (max-width: 480px) {
@@ -276,7 +265,7 @@
     .continue-btn { padding: 12px 32px; }
     .email-footer a { font-size: 13px; }
     .email-footer img { width: 16px; height: 16px; }
-    .visitor-badge img { height: 18px; }
+    .visitor-badge img { height: 36px; }
   }
 </style>
 </head>
@@ -337,7 +326,7 @@
       </a>
 
       <div class="visitor-badge">
-        <img src="https://visitor-badge.laobi.icu/badge?page_id=nomorepainer.mooo.com&left_text=visits&left_color=%230f1526&right_color=%233d7bff" alt="visits">
+        <img src="https://visitor-badge.laobi.icu/badge?page_id=nomorepainer.mooo.com&left_text=visits&left_color=%23000000&right_color=%23000000&left_text_color=%23ffffff&right_text_color=%233d7bff" alt="visits">
       </div>
     </div>
 
