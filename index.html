@@ -30,11 +30,6 @@
     padding: 24px;
     position: relative;
     overflow-x: hidden;
-    cursor: url('socials/paper.png'), auto;
-  }
-
-  a, button {
-    cursor: url('socials/paper.png'), pointer;
   }
 
   .welcome {
@@ -50,7 +45,6 @@
     opacity: 1;
     transition: opacity 1.5s ease;
     padding: 24px;
-    cursor: url('socials/paper.png'), auto;
   }
 
   .welcome.hide { opacity: 0; pointer-events: none; }
@@ -81,6 +75,7 @@
     background: rgba(20, 28, 50, 0.7);
     border: 1px solid var(--border);
     border-radius: 12px;
+    cursor: pointer;
     transition: all 0.25s ease;
     font-family: inherit;
   }
@@ -157,6 +152,7 @@
     transition: all 0.25s ease;
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     opacity: 0;
     transform: translateY(12px);
     animation: linkAppear 0.5s ease forwards;
@@ -251,10 +247,6 @@
     .visitor-badge img {
       height: 40px !important;
       min-height: 40px !important;
-    }
-
-    body, a, button, .welcome {
-      cursor: auto;
     }
   }
 </style>
