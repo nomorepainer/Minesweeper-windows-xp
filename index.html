@@ -531,7 +531,7 @@
 
     function copyCrypto(address, name) {
       navigator.clipboard.writeText(address).then(function() {
-        showToast(name + ' скопирован ✓');
+        showToast(name + ' скопирован');
       }).catch(function() {
         var ta = document.createElement('textarea');
         ta.value = address;
@@ -539,7 +539,7 @@
         ta.select();
         document.execCommand('copy');
         document.body.removeChild(ta);
-        showToast(name + ' скопирован ✓');
+        showToast(name + ' скопирован');
       });
     }
 
@@ -555,4 +555,4 @@
     }
   </script>
 </body>
-</html>
+                                            </html>
