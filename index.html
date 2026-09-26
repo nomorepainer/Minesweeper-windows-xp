@@ -34,20 +34,20 @@
 
   .spotlight {
     position: fixed;
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: radial-gradient(circle,
-      rgba(61,123,255,0.35) 0%,
-      rgba(106,92,255,0.20) 30%,
-      rgba(47,214,255,0.10) 50%,
-      transparent 75%);
+      rgba(61,123,255,0.50) 0%,
+      rgba(106,92,255,0.28) 30%,
+      rgba(47,214,255,0.12) 55%,
+      transparent 85%);
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 0;
     transition: opacity 0.3s ease;
     opacity: 0;
-    filter: blur(10px);
+    filter: blur(24px);
   }
 
   .welcome {
@@ -173,31 +173,17 @@
     letter-spacing: 0.5px;
     margin-bottom: 30px;
     font-weight: 700;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  h1 .letter {
-    display: inline-block;
     background: linear-gradient(90deg, #e6ecff, #9db4ff, #6a5cff, #2fd6ff, #e6ecff);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: rgbFlow 4s linear infinite;
-    transition: transform 0.7s cubic-bezier(0.34, 1.2, 0.64, 1);
   }
 
   @keyframes rgbFlow {
     0%   { background-position: 0% 50%; }
     100% { background-position: 300% 50%; }
-  }
-
-  h1.scatter .letter {
-    transform: translate(var(--tx), 60px) rotate(var(--rot));
   }
 
   .links {
@@ -337,7 +323,7 @@
       </div>
     </div>
 
-    <h1 id="nickname">nomorepainer</h1>
+    <h1>nomorepainer</h1>
 
     <div class="links">
       <a class="link" href="https://t.me/nomorepainer228"
@@ -435,36 +421,6 @@
       }
       animateSpotlight();
     }
-
-    const nick = document.getElementById('nickname');
-    const text = nick.textContent.trim();
-    nick.textContent = '';
-    const letters = [];
-
-    for (let i = 0; i < text.length; i++) {
-      const span = document.createElement('span');
-      span.className = 'letter';
-      span.textContent = text[i];
-      nick.appendChild(span);
-      letters.push(span);
-    }
-
-    nick.addEventListener('click', () => {
-      if (nick.classList.contains('scatter')) return;
-
-      letters.forEach((letter) => {
-        const tx = (Math.random() - 0.5) * 200;
-        const rot = (Math.random() - 0.5) * 360;
-        letter.style.setProperty('--tx', tx + 'px');
-        letter.style.setProperty('--rot', rot + 'deg');
-      });
-
-      nick.classList.add('scatter');
-
-      setTimeout(() => {
-        nick.classList.remove('scatter');
-      }, 700);
-    });
   </script>
 </body>
 </html>
