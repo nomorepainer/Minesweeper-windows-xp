@@ -34,15 +34,20 @@
 
   .spotlight {
     position: fixed;
-    width: 400px;
-    height: 400px;
+    width: 500px;
+    height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(61,123,255,0.12), rgba(106,92,255,0.06) 40%, transparent 70%);
+    background: radial-gradient(circle,
+      rgba(61,123,255,0.35) 0%,
+      rgba(106,92,255,0.20) 30%,
+      rgba(47,214,255,0.10) 50%,
+      transparent 75%);
     pointer-events: none;
     transform: translate(-50%, -50%);
     z-index: 0;
     transition: opacity 0.3s ease;
     opacity: 0;
+    filter: blur(10px);
   }
 
   .welcome {
@@ -183,7 +188,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: rgbFlow 4s linear infinite;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.7s cubic-bezier(0.34, 1.2, 0.64, 1);
   }
 
   @keyframes rgbFlow {
@@ -192,7 +197,7 @@
   }
 
   h1.scatter .letter {
-    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+    transform: translate(var(--tx), 60px) rotate(var(--rot));
   }
 
   .links {
@@ -448,11 +453,9 @@
       if (nick.classList.contains('scatter')) return;
 
       letters.forEach((letter) => {
-        const tx = (Math.random() - 0.5) * 300;
-        const ty = (Math.random() - 0.5) * 300;
-        const rot = (Math.random() - 0.5) * 720;
+        const tx = (Math.random() - 0.5) * 200;
+        const rot = (Math.random() - 0.5) * 360;
         letter.style.setProperty('--tx', tx + 'px');
-        letter.style.setProperty('--ty', ty + 'px');
         letter.style.setProperty('--rot', rot + 'deg');
       });
 
