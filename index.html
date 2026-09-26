@@ -192,7 +192,7 @@
     gap: 10px;
   }
 
-  a.link {
+  a.link, button.link {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -210,6 +210,9 @@
     opacity: 0;
     transform: translateY(12px);
     animation: linkAppear 0.5s ease forwards;
+    font-family: inherit;
+    width: 100%;
+    text-align: left;
   }
 
   @keyframes linkAppear {
@@ -219,16 +222,17 @@
     }
   }
 
-  a.link:nth-child(1) { animation-delay: 0.05s; }
-  a.link:nth-child(2) { animation-delay: 0.10s; }
-  a.link:nth-child(3) { animation-delay: 0.15s; }
-  a.link:nth-child(4) { animation-delay: 0.20s; }
-  a.link:nth-child(5) { animation-delay: 0.25s; }
-  a.link:nth-child(6) { animation-delay: 0.30s; }
-  a.link:nth-child(7) { animation-delay: 0.35s; }
-  a.link:nth-child(8) { animation-delay: 0.40s; }
+  a.link:nth-child(1), button.link:nth-child(1) { animation-delay: 0.05s; }
+  a.link:nth-child(2), button.link:nth-child(2) { animation-delay: 0.10s; }
+  a.link:nth-child(3), button.link:nth-child(3) { animation-delay: 0.15s; }
+  a.link:nth-child(4), button.link:nth-child(4) { animation-delay: 0.20s; }
+  a.link:nth-child(5), button.link:nth-child(5) { animation-delay: 0.25s; }
+  a.link:nth-child(6), button.link:nth-child(6) { animation-delay: 0.30s; }
+  a.link:nth-child(7), button.link:nth-child(7) { animation-delay: 0.35s; }
+  a.link:nth-child(8), button.link:nth-child(8) { animation-delay: 0.40s; }
+  a.link:nth-child(9), button.link:nth-child(9) { animation-delay: 0.45s; }
 
-  a.link:hover {
+  a.link:hover, button.link:hover {
     border-color: rgba(61,123,255,0.5);
     background: #0a0e1a;
     transform: translateX(4px);
@@ -241,6 +245,90 @@
     object-fit: contain;
     flex-shrink: 0;
     display: block;
+  }
+
+  .crypto-toggle {
+    justify-content: space-between;
+  }
+
+  .crypto-arrow {
+    font-size: 12px;
+    color: var(--muted);
+    transition: transform 0.3s ease;
+    margin-left: auto;
+  }
+
+  .crypto-toggle.open .crypto-arrow {
+    transform: rotate(180deg);
+  }
+
+  .crypto-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+    opacity: 0;
+    margin-top: 0;
+  }
+
+  .crypto-menu.open {
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 10px;
+  }
+
+  .crypto-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .crypto-item:last-child { margin-bottom: 0; }
+
+  .crypto-item:hover {
+    border-color: rgba(61,123,255,0.5);
+    background: #0a0e1a;
+  }
+
+  .crypto-item .link-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .crypto-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .crypto-name {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .crypto-address {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: monospace;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .crypto-copy {
+    font-size: 11px;
+    color: var(--muted);
+    opacity: 0.5;
+    flex-shrink: 0;
   }
 
   .email-footer {
@@ -288,16 +376,42 @@
     image-rendering: -webkit-optimize-contrast;
   }
 
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translate(-50%, 20px);
+    background: #000;
+    border: 1px solid rgba(47, 214, 255, 0.5);
+    color: var(--text);
+    padding: 12px 22px;
+    border-radius: 12px;
+    font-size: 14px;
+    box-shadow: 0 0 30px rgba(47, 214, 255, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 1000;
+    font-family: monospace;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
   @media (max-width: 480px) {
     .card { padding: 30px 20px; }
     h1 { font-size: 20px; }
-    a.link { padding: 12px 14px; font-size: 14px; gap: 14px; }
+    a.link, button.link { padding: 12px 14px; font-size: 14px; gap: 14px; }
     .link-icon { width: 26px; height: 26px; }
     .welcome h2 { font-size: 20px; }
     .continue-btn { padding: 12px 32px; }
     .email-footer a { font-size: 13px; }
     .email-footer img { width: 16px; height: 16px; }
     .spotlight { display: none; }
+    .crypto-item { padding: 12px 14px; gap: 12px; }
+    .crypto-address { font-size: 10px; }
 
     .visitor-badge img {
       height: 40px !important;
@@ -358,6 +472,31 @@
       <a class="link" href="https://steamcommunity.com/id/nomorepainer" target="_blank" rel="noopener">
         <img class="link-icon" src="socials/Steam.png" alt=""> Steam
       </a>
+
+      <button class="link crypto-toggle" id="cryptoToggle" onclick="toggleCrypto()">
+        <img class="link-icon" src="socials/Gram.png" alt=""> Crypto Wallet
+        <span class="crypto-arrow">▼</span>
+      </button>
+
+      <div class="crypto-menu" id="cryptoMenu">
+        <div class="crypto-item" onclick="copyCrypto('UQBIgwr73pTXMJuLQ1WAVKnjD_5a8TnWIq7jhtqPkZz-4ihM', 'TON')">
+          <img class="link-icon" src="socials/TON.png" alt="">
+          <div class="crypto-info">
+            <div class="crypto-name">TON</div>
+            <div class="crypto-address">UQBIgwr73pTXMJuLQ1WAVKnjD_5a8TnWIq7jhtqPkZz-4ihM</div>
+          </div>
+          <span class="crypto-copy">copy</span>
+        </div>
+
+        <div class="crypto-item" onclick="copyCrypto('TBeULCqtJGZRUAe7PPhx9qWHjwknHPQyYu', 'TRC20')">
+          <img class="link-icon" src="socials/TRC20.png" alt="">
+          <div class="crypto-info">
+            <div class="crypto-name">TRC20</div>
+            <div class="crypto-address">TBeULCqtJGZRUAe7PPhx9qWHjwknHPQyYu</div>
+          </div>
+          <span class="crypto-copy">copy</span>
+        </div>
+      </div>
     </div>
 
     <div class="email-footer">
@@ -373,12 +512,91 @@
 
   </div>
 
+  <div class="toast" id="toast">Скопировано</div>
+
   <script>
     function enterSite() {
       const welcome = document.getElementById('welcome');
       welcome.classList.add('hide');
       setTimeout(() => {
         welcome.style.display = 'none';
+      }, 1500);
+    }
+
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      document.querySelectorAll('a.link[data-app]').forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const appLink = this.dataset.app;
+          const webLink = this.href;
+          window.location.href = appLink;
+          setTimeout(() => {
+            window.location.href = webLink;
+          }, 1500);
+        });
+      });
+    }
+
+    if (!isMobile) {
+      const spotlight = document.getElementById('spotlight');
+      let mouseX = 0, mouseY = 0, spotX = 0, spotY = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        spotlight.style.opacity = '1';
+      });
+
+      document.addEventListener('mouseleave', () => {
+        spotlight.style.opacity = '0';
+      });
+
+      function animateSpotlight() {
+        spotX += (mouseX - spotX) * 0.15;
+        spotY += (mouseY - spotY) * 0.15;
+        spotlight.style.left = spotX + 'px';
+        spotlight.style.top = spotY + 'px';
+        requestAnimationFrame(animateSpotlight);
+      }
+      animateSpotlight();
+    }
+
+    function toggleCrypto() {
+      const toggle = document.getElementById('cryptoToggle');
+      const menu = document.getElementById('cryptoMenu');
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    }
+
+    function copyCrypto(address, name) {
+      navigator.clipboard.writeText(address).then(() => {
+        showToast(name + ' скопирован ✓');
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = address;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(name + ' скопирован ✓');
+      });
+    }
+
+    let toastTimer;
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      toast.textContent = text;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 1800);
+    }
+  </script>
+</body>
+</html>me.style.display = 'none';
       }, 1500);
     }
 
