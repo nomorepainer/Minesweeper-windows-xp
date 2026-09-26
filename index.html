@@ -207,30 +207,10 @@
     position: relative;
     overflow: hidden;
     cursor: pointer;
-    opacity: 0;
-    transform: translateY(12px);
-    animation: linkAppear 0.5s ease forwards;
     font-family: inherit;
     width: 100%;
     text-align: left;
   }
-
-  @keyframes linkAppear {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  a.link:nth-child(1), button.link:nth-child(1) { animation-delay: 0.05s; }
-  a.link:nth-child(2), button.link:nth-child(2) { animation-delay: 0.10s; }
-  a.link:nth-child(3), button.link:nth-child(3) { animation-delay: 0.15s; }
-  a.link:nth-child(4), button.link:nth-child(4) { animation-delay: 0.20s; }
-  a.link:nth-child(5), button.link:nth-child(5) { animation-delay: 0.25s; }
-  a.link:nth-child(6), button.link:nth-child(6) { animation-delay: 0.30s; }
-  a.link:nth-child(7), button.link:nth-child(7) { animation-delay: 0.35s; }
-  a.link:nth-child(8), button.link:nth-child(8) { animation-delay: 0.40s; }
-  a.link:nth-child(9), button.link:nth-child(9) { animation-delay: 0.45s; }
 
   a.link:hover, button.link:hover {
     border-color: rgba(61,123,255,0.5);
@@ -248,7 +228,7 @@
   }
 
   .crypto-toggle {
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .crypto-arrow {
@@ -361,21 +341,6 @@
 
   .email-footer a:hover img { opacity: 1; }
 
-  .visitor-badge {
-    margin-top: 22px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .visitor-badge img {
-    height: 44px !important;
-    width: auto !important;
-    max-width: none !important;
-    min-height: 44px !important;
-    display: block !important;
-    image-rendering: -webkit-optimize-contrast;
-  }
-
   .toast {
     position: fixed;
     left: 50%;
@@ -412,11 +377,6 @@
     .spotlight { display: none; }
     .crypto-item { padding: 12px 14px; gap: 12px; }
     .crypto-address { font-size: 10px; }
-
-    .visitor-badge img {
-      height: 40px !important;
-      min-height: 40px !important;
-    }
   }
 </style>
 </head>
@@ -504,10 +464,6 @@
         <img src="socials/Gmail.png" alt="">
         nomorepainer@gmail.com
       </a>
-
-      <div class="visitor-badge">
-        <img src="https://visitor-badge.laobi.icu/badge?page_id=nomorepainer.mooo.com&left_text=visits&left_color=%23000000&right_color=%23000000&left_text_color=%23ffffff&right_text_color=%233d7bff" alt="visits">
-      </div>
     </div>
 
   </div>
@@ -516,40 +472,43 @@
 
   <script>
     function enterSite() {
-      const welcome = document.getElementById('welcome');
+      var welcome = document.getElementById('welcome');
       welcome.classList.add('hide');
-      setTimeout(() => {
+      setTimeout(function() {
         welcome.style.display = 'none';
       }, 1500);
     }
 
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
 
     if (isMobile) {
-      document.querySelectorAll('a.link[data-app]').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const appLink = this.dataset.app;
-          const webLink = this.href;
-          window.location.href = appLink;
-          setTimeout(() => {
-            window.location.href = webLink;
-          }, 1500);
-        });
-      });
+      var mobileLinks = document.querySelectorAll('a.link[data-app]');
+      for (var i = 0; i < mobileLinks.length; i++) {
+        (function(link) {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            var appLink = link.dataset.app;
+            var webLink = link.href;
+            window.location.href = appLink;
+            setTimeout(function() {
+              window.location.href = webLink;
+            }, 1500);
+          });
+        })(mobileLinks[i]);
+      }
     }
 
     if (!isMobile) {
-      const spotlight = document.getElementById('spotlight');
-      let mouseX = 0, mouseY = 0, spotX = 0, spotY = 0;
+      var spotlight = document.getElementById('spotlight');
+      var mouseX = 0, mouseY = 0, spotX = 0, spotY = 0;
 
-      document.addEventListener('mousemove', (e) => {
+      document.addEventListener('mousemove', function(e) {
         mouseX = e.clientX;
         mouseY = e.clientY;
         spotlight.style.opacity = '1';
       });
 
-      document.addEventListener('mouseleave', () => {
+      document.addEventListener('mouseleave', function() {
         spotlight.style.opacity = '0';
       });
 
@@ -564,17 +523,17 @@
     }
 
     function toggleCrypto() {
-      const toggle = document.getElementById('cryptoToggle');
-      const menu = document.getElementById('cryptoMenu');
+      var toggle = document.getElementById('cryptoToggle');
+      var menu = document.getElementById('cryptoMenu');
       toggle.classList.toggle('open');
       menu.classList.toggle('open');
     }
 
     function copyCrypto(address, name) {
-      navigator.clipboard.writeText(address).then(() => {
+      navigator.clipboard.writeText(address).then(function() {
         showToast(name + ' скопирован ✓');
-      }).catch(() => {
-        const ta = document.createElement('textarea');
+      }).catch(function() {
+        var ta = document.createElement('textarea');
         ta.value = address;
         document.body.appendChild(ta);
         ta.select();
@@ -584,60 +543,15 @@
       });
     }
 
-    let toastTimer;
+    var toastTimer;
     function showToast(text) {
-      const toast = document.getElementById('toast');
+      var toast = document.getElementById('toast');
       toast.textContent = text;
       toast.classList.add('show');
       clearTimeout(toastTimer);
-      toastTimer = setTimeout(() => {
+      toastTimer = setTimeout(function() {
         toast.classList.remove('show');
       }, 1800);
-    }
-  </script>
-</body>
-</html>me.style.display = 'none';
-      }, 1500);
-    }
-
-    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
-    if (isMobile) {
-      document.querySelectorAll('a.link[data-app]').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const appLink = this.dataset.app;
-          const webLink = this.href;
-          window.location.href = appLink;
-          setTimeout(() => {
-            window.location.href = webLink;
-          }, 1500);
-        });
-      });
-    }
-
-    if (!isMobile) {
-      const spotlight = document.getElementById('spotlight');
-      let mouseX = 0, mouseY = 0, spotX = 0, spotY = 0;
-
-      document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        spotlight.style.opacity = '1';
-      });
-
-      document.addEventListener('mouseleave', () => {
-        spotlight.style.opacity = '0';
-      });
-
-      function animateSpotlight() {
-        spotX += (mouseX - spotX) * 0.15;
-        spotY += (mouseY - spotY) * 0.15;
-        spotlight.style.left = spotX + 'px';
-        spotlight.style.top = spotY + 'px';
-        requestAnimationFrame(animateSpotlight);
-      }
-      animateSpotlight();
     }
   </script>
 </body>
