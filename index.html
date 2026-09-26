@@ -226,9 +226,12 @@
   }
 
   .visitor-badge img {
-    height: 44px;
-    width: auto;
-    display: block;
+    height: 44px !important;
+    width: auto !important;
+    max-width: none !important;
+    min-height: 44px !important;
+    display: block !important;
+    image-rendering: -webkit-optimize-contrast;
   }
 
   @media (max-width: 480px) {
@@ -240,6 +243,11 @@
     .continue-btn { padding: 12px 32px; }
     .email-footer a { font-size: 13px; }
     .email-footer img { width: 16px; height: 16px; }
+
+    .visitor-badge img {
+      height: 40px !important;
+      min-height: 40px !important;
+    }
   }
 </style>
 </head>
