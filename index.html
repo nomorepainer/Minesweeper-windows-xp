@@ -250,6 +250,23 @@
 
   .email-footer a:hover img { opacity: 1; }
 
+  /* ====== СЧЁТЧИК ПОСЕЩЕНИЙ ====== */
+  .visitor-badge {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .visitor-badge img {
+    height: 20px;
+    opacity: 0.85;
+    transition: opacity 0.25s ease;
+  }
+
+  .visitor-badge img:hover {
+    opacity: 1;
+  }
+
   @media (max-width: 480px) {
     .card { padding: 30px 20px; }
     h1 { font-size: 20px; }
@@ -259,6 +276,7 @@
     .continue-btn { padding: 12px 32px; }
     .email-footer a { font-size: 13px; }
     .email-footer img { width: 16px; height: 16px; }
+    .visitor-badge img { height: 18px; }
   }
 </style>
 </head>
@@ -266,7 +284,7 @@
 
   <div class="welcome" id="welcome">
     <h2>Добро пожаловать на сайт!</h2>
-    <button class="continue-btn" onclick="enterSite()">Продолжить</button>
+    <button class="continue-btn" onclick="enterSite()">Перейти на страницу</button>
   </div>
 
   <div class="card">
@@ -317,6 +335,10 @@
         <img src="socials/Gmail.png" alt="">
         nomorepainer@gmail.com
       </a>
+
+      <div class="visitor-badge">
+        <img src="https://visitor-badge.laobi.icu/badge?page_id=nomorepainer.mooo.com&left_text=visits&left_color=%230f1526&right_color=%233d7bff" alt="visits">
+      </div>
     </div>
 
   </div>
